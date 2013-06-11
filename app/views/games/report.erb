@@ -1,7 +1,15 @@
 <div class='container'>
-
+<h1> Congratulations <%= @game.winner %> You Rule! </h1>
  Game Number: <%= @game.id %><br/>
  Winner: <%= @game.winner %><br/>
  Race Time: <%= @game.updated_at - @game.created_at %> seconds<br/>
 
+<button><a href="/games/new">New Game</a></button>
+
+
+<form action="/games" method="post">
+  <input type="hidden" name="game[player1]" value=<%= @game.players.first.name %>>
+  <input type="hidden" name="game[player2]" value=<%= @game.players.last.name %>>
+  <button type="submit">Play Again with the same players</button>
+</form>
 </div>

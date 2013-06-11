@@ -31,5 +31,5 @@ post '/game/:id' do
   @game = Game.find(params[:id])
   @game.winner = params['winner']
   @game.save
-  erb :'games/win'
+  redirect "/game/#{@game.id}"
 end

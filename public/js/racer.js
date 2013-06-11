@@ -42,8 +42,9 @@ $('document').ready(function(){
     if (next_cell.length === 0)
       {
         var winner = next_cell['prevObject'][0]['parentElement']['id'];
-        // console.log(winner);
-        postResults(parseWinner(winner));
+        var winnerName = parseWinner(winner);
+        $('table').replaceWith('Getting Results');
+        postResults(winnerName);
       }
       else
       {
