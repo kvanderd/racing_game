@@ -1,54 +1,64 @@
-$('document').ready(function(){
 
-  $(document).on('keyup', function(event) {
-    var player1 = $('#player1');
-    var player2 = $('#player2');
-    // console.log(player1);
-    if(event.keyCode == 65)
-    {
-      moveCar(player1);
-    }
-    else if (event.keyCode == 76)
-    {
-      moveCar(player2);
-    }
-    else
-    {
-      console.log('you can\'t use that key');
-    }
-  });
 
-  function parseWinner(winner){
-    var winnerName = $('#' + winner).attr('class');
-    return winnerName;
+function Game(id) {
+   this.id = id;
+}
+
+Game.prototype.findLocation = function(player)
+{
+  var location = $(player).find('td.active');
+  console.log(this.checkWinner(player, location['selector']));
+  if(this.checkWinner(player, location['selector']) === true)
+  {
+    this.declareWinner(player)
+  } else
+  {
+    this.render(location)
   }
+};
 
-  function postResults(winner){
-    $.ajax({
-      method: 'POST',
-      url: '/game/'+ $('.game_id').attr('id'),
-      data: { 'winner': winner}
-  }).done(function(response){
-    console.log(response);
-    $('.container').replaceWith(response);
-  });
-  }
+Game.prototype.render = function(location) {
+  var next_cell = $(location['selector']).next();
+  $(location['selector']).removeClass('active');
+  next_cell.addClass('active');
 
-  function moveCar(player) {
-    // console.log(player);
-    var current_cell = $(player).find('td.active');
-    var next_cell = current_cell.next();
-    current_cell.removeClass('active');
-    if (next_cell.length === 0)
-      {
-        var winner = next_cell['prevObject'][0]['parentElement']['id'];
-        var winnerName = parseWinner(winner);
-        $('table').replaceWith('Getting Results');
-        postResults(winnerName);
-      }
-      else
-      {
-        next_cell.addClass('active');
-      }
+};
+
+Game.prototype.Keystroke = function(e, player_1, player_2) {
+  if (e.keyCode==="A".charCodeAt(0)) {
+    this.findLocation(player_1);
+  } else if (e.keyCode==="B".charCodeAt(0)) {
+    this.findLocation(player_2);
   }
-});
+};
+
+
+Game.prototype.checkWinner = function(player, location) {
+  var next_cell = $(location).next();
+  if(next_cell.length === 0 )
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+};
+
+Game.prototype.declareWinner = function(player){
+  var winnerName = $(player['selector']).attr('class');
+  console.log(winnerName);
+  $('table').replaceWith('Getting Results');
+  this.postResults(winnerName);
+};
+
+Game.prototype.postResults = function(winnerName){
+  $.ajax ({
+    method: 'POST',
+    url: '/game/'+ $('.game_id').attr('id'),
+    data: { 'winner' : winnerName}
+    }).done(function(response){
+      console.log(response);
+      $('body').replaceWith(response);
+    });
+};

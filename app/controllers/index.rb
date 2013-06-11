@@ -24,7 +24,6 @@ end
 get '/game/:id' do
    @game = Game.find(params[:id])
    erb :'games/report'
-
 end
 
 post '/game/:id' do
