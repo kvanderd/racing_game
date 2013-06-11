@@ -1,0 +1,7 @@
+<div class="errors">
+  <% if @messages %> 
+    <% @messages.each do |key, val| %>
+      <%= "#{key} has error: #{val}" %>
+    <% end %>
+  <% end %>
+</div>

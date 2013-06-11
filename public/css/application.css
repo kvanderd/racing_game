@@ -1,0 +1,22 @@
+.container {
+  margin: 20px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
+}
+th {
+  text-align: left;
+}
+
+
+.racer_table td {
+  border: 1px solid pink;
+  height: 16px;
+  width: 16px;
+  background-color: green;
+}
+
+.racer_table td.active {
+  background-image:url("../images/racecar.jpg");
+  background-color: red;
+}

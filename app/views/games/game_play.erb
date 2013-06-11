@@ -1,0 +1,44 @@
+<script src="/js/racer.js"></script>
+<div class="container">
+<h1 class="game_id" id="<%= @game.id %>">Game <%= @game.id %></h1>
+
+<table class="racer_table">
+  <tr id="player1" class="<%= @game.players.first.name %>">
+    <td class="active"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    
+  </tr>
+  <tr id="player2" class="<%= @game.players.last.name %>">
+    <td class="active"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</div>
